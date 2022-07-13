@@ -9,6 +9,14 @@ class Query {
       throw error;
     }
   }
+  static async getColors() {
+    try {
+      const getAllColors= await db.select().from("colors");
+      return getAllColors;
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 export default Query;

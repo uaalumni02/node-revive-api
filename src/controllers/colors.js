@@ -17,6 +17,14 @@ class ColorController {
       return Response.responseServerError(res);
     }
   }
+  static async getAllColors(req, res) {
+    try {
+      const getAllColors = await Query.getColors(req);
+      return Response.responseOk(res, getAllColors);
+    } catch (error) {
+      return Response.responseServerError(res);ß
+    }
+  }
 }
 
 export default ColorController;
