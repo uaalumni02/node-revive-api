@@ -14,8 +14,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 import colorRoutes from "./routes/colors.route";
+import brandRoutes from "./routes/brands.route";
 
 router.use("/colors", colorRoutes);
+router.use("/brands", brandRoutes);
 
 app.use("/api", router);
 
