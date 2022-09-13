@@ -22,7 +22,24 @@ class ColorController {
       const getAllColors = await Query.getColors(req);
       return Response.responseOk(res, getAllColors);
     } catch (error) {
-      return Response.responseServerError(res);ß
+      return Response.responseServerError(res);
+      ß;
+    }
+  }
+  static async getColorById(req, res) {
+    const { color_id } = req.params;
+    try {
+      const { error } = validator.validate({ color_id });
+      if (error) {
+        console.log(error)
+        return Response.responseValidationError(res, Errors.INVALID_ID);
+      }
+      const colorById = await Query.colorById(color_id);
+      return colorById.length == 0
+        ? Response.responseNotFound(res, Errors.INVALID_BRAND)
+        : Response.responseOk(res, colorById);
+    } catch (error) {
+      return Response.responseServerError(res);
     }
   }
 }

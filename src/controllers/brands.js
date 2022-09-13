@@ -17,6 +17,29 @@ class BrandController {
       return Response.responseServerError(res);
     }
   }
+  static async getAllBrands(req, res) {
+    try {
+      const getAllBrands = await Query.getBrands(req);
+      return Response.responseOk(res, getAllBrands);
+    } catch (error) {
+      return Response.responseServerError(res);
+    }
+  }
+  static async getBrandById(req, res) {
+    const { brand_id } = req.params;
+    try {
+      const { error } = validator.validate({ brand_id });
+      if (error) {
+        return Response.responseValidationError(res, Errors.INVALID_ID);
+      }
+      const brandById = await Query.brandById(brand_id);
+      return brandById.length == 0
+        ? Response.responseNotFound(res, Errors.INVALID_BRAND)
+        : Response.responseOk(res, brandById);
+    } catch (error) {
+      return Response.responseServerError(res);
+    }
+  }
 }
 
 export default BrandController;
